@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Golang WebSocket sample on Azure App Service</title>
+		<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script>
+                  $(function() {
+                        var ws = new WebSocket("wss://"+window.location.host+"/echo");
+                        var displayList = $('#messages');
+                        
+                        ws.onmessage = function(e) {
+                              console.log("Received :" + event.data);
+                              $('<li>').text(event.data).appendTo(displayList);
+                        };
+                  
+                        $('#sendBtn').click(function(){
+                              var data = $('#input').val();
+                              ws.send(data);
+                              console.log("Sending :" + data);
+                        });
+                  });
+		</script>
+	</head>
+	<body>
+	     <input id="input" type="text" />
+	     <input type="button" id="sendBtn" value="Send Button"></input>
+           <ul id="messages"></ul>
+	</body>
+</html>
